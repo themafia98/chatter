@@ -1,0 +1,8 @@
+
+
+.aside {
+    display: flex;
+    justify-content: center;
+    width: 290px;
+    padding-top: var(--topMarginContainer);
+}
