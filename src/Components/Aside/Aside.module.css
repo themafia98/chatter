@@ -2,7 +2,11 @@
 
 .aside {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     width: 290px;
     padding-top: var(--topMarginContainer);
+}
+
+.informSection {
+    align-self: center;
 }

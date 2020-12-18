@@ -2,7 +2,7 @@
 
 .content {
     flex-grow: 1;
-    height: 100vh;
+    height: calc(100vh - var(--topMarginContainer));
     background-color: #E6ECFE;
     padding-top: var(--topMarginContainer);
 };
