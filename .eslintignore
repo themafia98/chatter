@@ -1,0 +1,18 @@
+!.storybook
+
+# dependencies
+node_modules/
+
+# testing
+coverage/
+
+# production
+build/
+
+temp.json
+table.json
+tempData.js
+tempData2.js
+
+test.json
+
