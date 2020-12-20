@@ -1,19 +1,27 @@
+import ChevronDown from "../ChevronDown/ChevronDown";
 import classes from "./UserBlock.module.css";
-
+import maleAvatar from "./avatars/male_user.png";
 
 const UserBlock = () => {
+  const handleClick = () => {};
 
-    const handleClick = () => {};
-
-    return (
-        <div className={classes.userBlock}>
-            <div className={classes.userAvatar} />
-            <div onClick={handleClick} className={classes.userInform}>
-                <p className={classes.username}>Username</p>
-                <i />
-            </div>
-        </div>
-    )
+  return (
+    <div className={classes.userBlock}>
+      <div
+        style={{ backgroundImage: `url(${maleAvatar})` }}
+        className={classes.userAvatar}
+      />
+      <div
+        role="button"
+        aria-hidden
+        onClick={handleClick}
+        className={classes.userInform}
+      >
+        <p className={classes.username}>Henry Jabbawockiez</p>
+        <ChevronDown />
+      </div>
+    </div>
+  );
 };
 
 export default UserBlock;

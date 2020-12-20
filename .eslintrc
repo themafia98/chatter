@@ -3,7 +3,7 @@
 
   "rules": {
     "arrow-body-style": ["error", "as-needed"],
-    "no-console": "error",
+    "no-console": "warn",
     "no-param-reassign": "error",
     "no-shadow": "error",
     "import/no-cycle": "error",
@@ -72,6 +72,7 @@
     "global-require": "error",
     "no-await-in-loop": "error",
     "jsx-a11y/no-noninteractive-tabindex": "error",
-    "import/no-dynamic-require": "error"
+    "import/no-dynamic-require": "error",
+    "react/react-in-jsx-scope": "off"
   }
 }
