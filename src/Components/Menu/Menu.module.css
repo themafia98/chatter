@@ -1,6 +1,42 @@
-
 .menuList {
-    flex-grow: 1;
-    padding: 0 10px;
-    margin: 0;
+  flex-grow: 1;
+  padding: 0 10px;
+  margin: 0;
+}
+
+.menuItem {
+  font-family: TT Norms;
+  font-size: 16px;
+  line-height: 19px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  color: #707c97;
+  padding-left: 38px;
+  cursor: pointer;
+}
+
+.menuItem:not(:last-child) {
+  margin-bottom: 51px;
+}
+
+.menuItem:first-child {
+  margin-top: 51px;
+}
+
+.menuItem:hover {
+  color: #2a8bf2;
+  border-left: 3px solid #2a8bf2;
+}
+
+.menuItem :global(img) {
+  padding-right: 17px;
+}
+
+.active {
+  color: #2a8bf2;
+  border-left: 3px solid #2a8bf2;
 }
