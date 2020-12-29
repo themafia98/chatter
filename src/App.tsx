@@ -1,3 +1,4 @@
+import React from "react";
 import Aside from "./Components/Aside/Aside";
 import ChatContainer from "./Components/ChatContainer/ChatContainer";
 import classes from "./App.module.css";
@@ -7,7 +8,6 @@ const App = () => (
     <Aside />
     <ChatContainer />
   </div>
-
 );
 
 export default App;

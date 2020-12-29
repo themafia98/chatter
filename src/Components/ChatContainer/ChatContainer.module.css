@@ -1,8 +1,45 @@
-
-
 .content {
-    flex-grow: 1;
-    height: calc(100vh - var(--topMarginContainer));
-    background-color: #E6ECFE;
-    padding-top: var(--topMarginContainer);
-};
+  flex-grow: 1;
+  height: calc(100vh - var(--topMarginContainer));
+  background-color: #e6ecfe;
+  padding-top: var(--topMarginContainer);
+  display: flex;
+  padding-left: 59px;
+}
+
+.chatsListHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.chatList {
+  display: flex;
+  flex: 0 0 50%;
+  flex-direction: column;
+}
+
+.title {
+  font-family: TT Norms;
+  font-size: 36px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+  color: #0d1c2e;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.recentChats {
+  font-family: TT Norms;
+  font-size: 18px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  color: #707c97;
+  margin: 0;
+}
