@@ -1,9 +1,12 @@
 import ChevronDown from "../ChevronDown/ChevronDown";
 import classes from "./UserBlock.module.css";
 import maleAvatar from "./avatars/male_user.png";
+import { MouseEvent } from "react";
 
 const UserBlock = () => {
-  const handleClick = () => {};
+  const handleClick = (e: MouseEvent) => {
+    e.stopPropagation();
+  };
 
   return (
     <div className={classes.userBlock}>
@@ -13,7 +16,7 @@ const UserBlock = () => {
       />
       <div
         role="button"
-        aria-hidden
+        aria-hidden={true}
         onClick={handleClick}
         className={classes.userInform}
       >
