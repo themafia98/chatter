@@ -1,7 +1,6 @@
-
 type ChevronDownProps = {
   color?: string;
-}
+};
 
 const ChevronDown = ({ color }: ChevronDownProps) => (
   <svg
@@ -20,7 +19,7 @@ const ChevronDown = ({ color }: ChevronDownProps) => (
 );
 
 ChevronDown.defaultProps = {
-  color: "#000"
-}
+  color: "#000",
+};
 
 export default ChevronDown;

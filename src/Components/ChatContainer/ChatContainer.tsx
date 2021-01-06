@@ -17,8 +17,8 @@ const ChatContainer = () => (
             </p>
           </div>
           <div>
-            <Button 
-              icon={<PlusIcon size="24" />} 
+            <Button
+              icon={<PlusIcon size="24" />}
               className={classes.createChatButton}
             >
               Create new Chat
@@ -27,9 +27,7 @@ const ChatContainer = () => (
         </div>
         <SearchBlock />
       </div>
-      <div className={classes.chat}>
-        ChatsList
-      </div>
+      <div className={classes.chat}>ChatsList</div>
     </div>
   </main>
 );
