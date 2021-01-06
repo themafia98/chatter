@@ -1,6 +1,6 @@
 import ChevronDown from "../ChevronDown/ChevronDown";
 import Button from "../common/Button/Button";
-import PlusIcon from "../PlusIcon/PlucIcon";
+import PlusIcon from "../PlusIcon/PlusIcon";
 import classes from "./ChatContainer.module.css";
 
 const ChatContainer = () => (
