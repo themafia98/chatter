@@ -1,11 +1,11 @@
 
 
-type PlusIcon = {
+type PlusIconType = {
     size?: string,
     color?: string
 }
 
-const PlusIcon = ({ size, color }: PlusIcon) => (
+const PlusIcon = ({ size, color }: PlusIconType) => (
   <svg 
     enableBackground="new 0 0 50 50"
     height={size} 

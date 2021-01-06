@@ -1,6 +1,7 @@
 import ChevronDown from "../ChevronDown/ChevronDown";
 import Button from "../common/Button/Button";
 import PlusIcon from "../PlusIcon/PlusIcon";
+import SearchBlock from "../SearchBlock/SearchBlock";
 import classes from "./ChatContainer.module.css";
 
 const ChatContainer = () => (
@@ -24,8 +25,11 @@ const ChatContainer = () => (
             </Button>
           </div>
         </div>
+        <SearchBlock />
       </div>
-      <div className={classes.chat}>123</div>
+      <div className={classes.chat}>
+        ChatsList
+      </div>
     </div>
   </main>
 );

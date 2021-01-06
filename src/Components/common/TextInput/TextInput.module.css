@@ -1,0 +1,16 @@
+.input {
+  outline: none;
+  border: 1px solid;
+  padding: 5px;
+}
+
+.input::placeholder {
+  font-family: TT Norms;
+  font-size: 18px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  color: #707c97;
+  padding-left: 10px;
+}
