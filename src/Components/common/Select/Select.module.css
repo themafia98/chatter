@@ -1,0 +1,10 @@
+.select :global(option),
+.select {
+  font-family: TT Norms;
+  font-size: 18px;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+  color: #707c97;
+}

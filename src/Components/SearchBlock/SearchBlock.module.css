@@ -12,12 +12,24 @@
   border-radius: 6px;
 }
 
-.searchController {
+.searchInput {
   width: 100%;
+}
+
+.searchController {
   border: none;
   padding: 0;
+  outline: none;
+  padding: 0;
+  height: 100%;
 }
 
 .searchDropdown {
   border-left: 2px solid #f5f4fb;
+  flex: 0 0 50%;
+}
+
+.searchIcon {
+  position: absolute;
+  pointer-events: none;
 }
