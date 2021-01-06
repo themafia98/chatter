@@ -1,0 +1,25 @@
+.button {
+  background-color: #2a8bf2;
+  padding: 5px;
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  font-family: TT Norms;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: capitalize;
+  color: #ffffff;
+  transition: background-color transform 0.3s ease-out;
+}
+
+.button:hover {
+  background-color: #1566bb;
+}
+
+.button:active {
+  transform: translateY(1px);
+}

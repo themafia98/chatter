@@ -9,6 +9,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px;
+}
+
 @font-face {
   font-family: "TT Norms";
   src: url("fonts/TTNorms-Bold.eot");
