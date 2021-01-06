@@ -1,0 +1,12 @@
+
+
+.aside {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    padding-top: var(--topMarginContainer);
+}
+
+.informSection {
+    align-self: center;
+}

@@ -1,0 +1,26 @@
+.userBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userAvatar {
+  object-fit: cover;
+  width: 96px;
+  height: 96px;
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.userInform {
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  text-align: center;
+  cursor: pointer;
+}
+
+.username {
+  font-family: TT Norms;
+  margin: 0;
+}
