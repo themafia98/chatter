@@ -1,14 +1,15 @@
-import { ReactElement } from "react";
+import { MouseEventHandler, ReactElement } from "react";
 import classes from "./Message.module.css";
 import avatar from "./avatar.jpg";
 import clsx from "clsx";
 
 type MessageProps = {
     children: string | ReactElement;
+    onClick: MouseEventHandler;
 }
 
-const Message = ({ children }: MessageProps) => (
-  <div className={classes.message}>
+const Message = ({ children, onClick }: MessageProps) => (
+  <div onClick={onClick} className={classes.message}>
     <div className={classes.header}>
       <div className={classes.headerIconWrapper}>
         <div style={{ backgroundImage: `url(${avatar})` }}  className={classes.avatar} />
