@@ -1,0 +1,38 @@
+.chatHeader {
+  display: flex;
+  height: 109px;
+}
+
+.headerIconWrapper {
+  flex: 0 0 15%;
+}
+
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.userWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.userStatus {
+  font-family: TT Norms;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: lowercase;
+  color: #2a8bf2;
+}
+
+.controls {
+  display: flex;
+}
