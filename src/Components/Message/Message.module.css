@@ -1,0 +1,97 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  height: 220px;
+  margin: 0 10px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border-radius: 6px;
+  padding-left: 40px;
+  padding-top: 33px;
+  padding-right: 26px;
+}
+
+.message:not(.disabled) {
+  cursor: pointer;
+}
+
+.message:not(.disabled):hover,
+.message:not(.disabled) :global(.active) {
+  background: linear-gradient(96.78deg, #7cb8f7 0%, #2a8bf2 100%);
+}
+
+.message:not(.disabled):hover :global(.text--white) {
+  color: #fff;
+}
+
+.header {
+  display: flex;
+}
+
+.headerIconWrapper {
+  flex: 0 0 15%;
+}
+
+.userWrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.messageStatus {
+  font-family: TT Norms;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: lowercase;
+  color: #2a8bf2;
+}
+
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.content {
+  padding-top: 17px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.3em;
+  font-family: TT Norms;
+  font-size: 16px;
+  line-height: 26px;
+  color: #707c97;
+}
+
+.userStatus {
+  font-family: TT Norms;
+  font-size: 16px;
+  line-height: 19px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: lowercase;
+  color: #707c97;
+  display: inline-flex;
+  align-items: flex-start;
+  text-overflow: ellipsis;
+}
+
+.userName {
+  font-family: TT Norms;
+  font-size: 18px;
+  line-height: 21px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: capitalize;
+  color: #0d1c2e;
+}

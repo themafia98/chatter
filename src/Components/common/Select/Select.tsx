@@ -10,7 +10,6 @@ type SelectType = {
   onChange?: ChangeEventHandler;
   value: string;
   options: JSX.Element[];
-  defaultValue?: string;
 };
 
 const Select = ({ className, name, placeholder, disabled, value, onChange, options }: SelectType) => {
