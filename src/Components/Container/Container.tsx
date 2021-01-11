@@ -1,25 +1,23 @@
-import { useState } from "react";
-import ChatContainer from "../ChatContainer/ChatContainer";
-import ChevronDown from "../ChevronDown/ChevronDown";
-import Button from "../common/Button/Button";
-import MessagesList from "../MessagesList/MessagesList";
-import PlusIcon from "../PlusIcon/PlusIcon";
-import SearchBlock from "../SearchBlock/SearchBlock";
-import classes from "./Container.module.css";
+import { ReactElement, useState } from 'react';
+import ChatContainer from '../ChatContainer/ChatContainer';
+import ChevronDown from '../ChevronDown/ChevronDown';
+import Button from '../common/Button/Button';
+import MessagesList from '../MessagesList/MessagesList';
+import PlusIcon from '../PlusIcon/PlusIcon';
+import SearchBlock from '../SearchBlock/SearchBlock';
+import classes from './Container.module.css';
 
-const Container = () => {
-
+const Container = (): ReactElement => {
   const [chatId, setChatId] = useState<string | null>(null);
 
   const handleSelectChat = (id: string): void => {
-
     if (id === chatId) {
       return;
     }
 
     setChatId(id);
-  }
-  
+  };
+
   return (
     <main className={classes.chatContainer}>
       <div className={classes.content}>
@@ -35,8 +33,7 @@ const Container = () => {
             <div>
               <Button
                 icon={<PlusIcon size="24" />}
-                className={classes.createChatButton}
-              >
+                className={classes.createChatButton}>
                 Create new Chat
               </Button>
             </div>

@@ -1,8 +1,10 @@
+import { ReactElement } from 'react';
+
 type ChevronDownProps = {
   color?: string;
 };
 
-const ChevronDown = ({ color }: ChevronDownProps) => (
+const ChevronDown = ({ color }: ChevronDownProps): ReactElement => 
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -12,14 +14,12 @@ const ChevronDown = ({ color }: ChevronDownProps) => (
     stroke={color}
     strokeWidth="2"
     strokeLinecap="round"
-    strokeLinejoin="round"
-  >
+    strokeLinejoin="round">
     <polyline points="6 9 12 15 18 9" />
   </svg>
-);
-
+;
 ChevronDown.defaultProps = {
-  color: "#000",
+  color: '#000',
 };
 
 export default ChevronDown;

@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import { ChangeEventHandler, ReactElement, useState } from "react";
-import classes from "./TextInput.module.css";
+import clsx from 'clsx';
+import { ChangeEventHandler, ReactElement, useState } from 'react';
+import classes from './TextInput.module.css';
 
 type TextInputType = {
   className?: string;
@@ -18,15 +18,14 @@ const TextInput = ({
   placeholder,
   disabled,
   icon,
-}: TextInputType) => {
-
+}: TextInputType): ReactElement => {
   const [isFocus, setFocus] = useState<boolean>(false);
 
   const handleFocus = () => setFocus(true);
   const handleBlur = () => setFocus(false);
 
   const shouldShowIcon = !value && !isFocus;
-  
+
   return (
     <div className={classes.inputWrapper}>
       {shouldShowIcon && icon}
@@ -36,17 +35,17 @@ const TextInput = ({
         onChange={onChange}
         className={clsx(classes.input, className)}
         type="text"
-        placeholder={!isFocus ? placeholder : ""}
+        placeholder={!isFocus ? placeholder : ''}
         value={value}
         disabled={disabled}
-      />
+        />
     </div>
   );
 };
 
 TextInput.defaultProps = {
-  value: "",
-  className: "",
+  value: '',
+  className: '',
   onChange: null,
   disabled: false,
   icon: null,
