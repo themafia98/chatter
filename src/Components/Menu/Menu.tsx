@@ -1,13 +1,14 @@
-import clsx from "clsx";
-import classes from "./Menu.module.css";
-import homeIcon from "./icons/home.svg";
-import bellIcon from "./icons/bell.svg";
-import calendarIcon from "./icons/calendar.svg";
-import chatIcon from "./icons/chat.svg";
-import personIcon from "./icons/person.svg";
-import settingsIcon from "./icons/settings.svg";
+import clsx from 'clsx';
+import classes from './Menu.module.css';
+import homeIcon from './icons/home.svg';
+import bellIcon from './icons/bell.svg';
+import calendarIcon from './icons/calendar.svg';
+import chatIcon from './icons/chat.svg';
+import personIcon from './icons/person.svg';
+import settingsIcon from './icons/settings.svg';
+import { ReactElement } from 'react';
 
-const Menu = () => (
+const Menu = (): ReactElement => 
   <menu className={classes.menuList}>
     <div className={classes.menuItem}>
       <img src={homeIcon} alt="homeIcon" />
@@ -34,6 +35,5 @@ const Menu = () => (
       <span>SETTINGS</span>
     </div>
   </menu>
-);
-
+;
 export default Menu;

@@ -1,12 +1,12 @@
-import { MouseEventHandler, ReactElement } from "react";
-import clsx from "clsx";
-import classes from "./Button.module.css";
+import { CSSProperties, MouseEventHandler, ReactElement } from 'react';
+import clsx from 'clsx';
+import classes from './Button.module.css';
 
 type ButtonProps = {
   className?: string;
-  style?: object;
+  style?: CSSProperties;
   onClick?: MouseEventHandler;
-  type: "submit" | "reset" | "button";
+  type: 'submit' | 'reset' | 'button';
   children: string;
   icon?: ReactElement;
 };
@@ -18,21 +18,19 @@ const Button = ({
   type,
   children,
   icon,
-}: ButtonProps) => (
+}: ButtonProps): ReactElement => 
   <button
     onClick={onClick}
     style={style}
     className={clsx(classes.button, className)}
-    type={type}
-  >
+    type={type}>
     {icon}
     {children}
   </button>
-);
-
+;
 Button.defaultProps = {
-  type: "button",
-  className: "",
+  type: 'button',
+  className: '',
   style: null,
   onClick: null,
 };

@@ -1,35 +1,23 @@
-import ChevronDown from "../ChevronDown/ChevronDown";
-import Button from "../common/Button/Button";
-import PlusIcon from "../PlusIcon/PlusIcon";
-import SearchBlock from "../SearchBlock/SearchBlock";
-import classes from "./ChatContainer.module.css";
+import ChatBody from '../ChatBody/ChatBody';
+import ChatHeader from '../ChatHeader/ChatHeader';
+import ChatControls from '../ChatControls/ChatControls';
+import classes from './ChatContainer.module.css';
+import { ReactElement } from 'react';
 
-const ChatContainer = () => (
-  <main className={classes.chatContainer}>
-    <div className={classes.content}>
-      <div className={classes.chatList}>
-        <div className={classes.chatsListHeader}>
-          <div>
-            <p className={classes.title}>Chats</p>
-            <p className={classes.recentChats}>
-              Recent Chats
-              <ChevronDown color="#707C97" />
-            </p>
-          </div>
-          <div>
-            <Button
-              icon={<PlusIcon size="24" />}
-              className={classes.createChatButton}
-            >
-              Create new Chat
-            </Button>
-          </div>
-        </div>
-        <SearchBlock />
-      </div>
-      <div className={classes.chat}>ChatsList</div>
+type ChatContainerProps = {
+  chatId: string | null;
+};
+
+const ChatContainer = ({ chatId }: ChatContainerProps): ReactElement | null => {
+  if (chatId === null) return null;
+
+  return (
+    <div className={classes.chatContainer}>
+      <ChatHeader chatId={chatId} />
+      <ChatBody />
+      <ChatControls />
     </div>
-  </main>
-);
+  );
+};
 
 export default ChatContainer;

@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import { ChangeEventHandler, useEffect, useRef } from "react";
-import classes from "./Select.module.css";
+import clsx from 'clsx';
+import { ChangeEventHandler, ReactElement, useEffect, useRef } from 'react';
+import classes from './Select.module.css';
 
 type SelectType = {
   className?: string;
@@ -10,25 +10,29 @@ type SelectType = {
   onChange?: ChangeEventHandler;
   value: string;
   options: JSX.Element[];
-  defaultValue?: string;
 };
 
-const Select = ({ className, name, placeholder, disabled, value, onChange, options }: SelectType) => {
-
+const Select = ({
+  className,
+  name,
+  placeholder,
+  disabled,
+  value,
+  onChange,
+  options,
+}: SelectType): ReactElement => {
   const selectRef = useRef<null | HTMLSelectElement>(null);
 
   useEffect(() => {
-
     if (value || !onChange || !selectRef.current) {
       return;
     }
-    
+
     const { current } = selectRef;
 
     onChange(current.value as any);
-
   }, [selectRef, onChange, value]);
-  
+
   return (
     <select
       ref={selectRef}
@@ -37,15 +41,14 @@ const Select = ({ className, name, placeholder, disabled, value, onChange, optio
       name={name}
       placeholder={placeholder}
       onChange={onChange}
-      value={value}
-    >
+      value={value}>
       {options}
     </select>
   );
-}
+};
 
 Select.defaultProps = {
-  className: "",
+  className: '',
   disabled: false,
 };
 

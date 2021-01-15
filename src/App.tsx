@@ -1,13 +1,12 @@
-import React from "react";
-import Aside from "./Components/Aside/Aside";
-import ChatContainer from "./Components/ChatContainer/ChatContainer";
-import classes from "./App.module.css";
+import React, { ReactElement } from 'react';
+import Aside from './Components/Aside/Aside';
+import Container from './Components/Container/Container';
+import classes from './App.module.css';
 
-const App = () => (
+const App = (): ReactElement => 
   <div className={classes.container}>
     <Aside />
-    <ChatContainer />
+    <Container />
   </div>
-);
-
+;
 export default App;
