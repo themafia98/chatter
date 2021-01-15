@@ -1,10 +1,18 @@
 import clsx from 'clsx';
-import { Fragment, ReactElement, useEffect, useMemo, useRef } from 'react';
+import { ReactElement, useEffect, useMemo, useRef } from 'react';
+import { DefaultRootState, useSelector } from 'react-redux';
+import { ChatStore } from '../../Interfaces';
+import { Message } from '../../Types';
 import DoneIcon from '../DoneIcon/DoneIcon';
 import classes from './ChatBody.module.css';
 
 const ChatBody = (): ReactElement => {
   const chatBodyRef = useRef<null | HTMLDivElement>(null);
+
+  const messages = useSelector((state: DefaultRootState) => {
+    const { chatReducer } = state as Record<string, ChatStore>;
+    return chatReducer.messages;
+  });
 
   useEffect(() => {
     if (!chatBodyRef.current) {
@@ -16,24 +24,24 @@ const ChatBody = (): ReactElement => {
 
   const messageList = useMemo(
     () =>
-      Array.from({ length: 15 }, (_, i) => 
+      messages?.map((message: Message) => 
         <div
-          className={clsx(classes.messageWrapper, i % 2 === 0 && classes.mine)}
-          key={i}>
+          className={clsx(
+            classes.messageWrapper,
+            message.author_id === 'user_id' && classes.mine
+          )}
+          key={message.id_message}>
           <div
             className={clsx(
               classes.message,
-              i % 2 === 0 && classes.mineMessage
+              message.author_id === 'user_id' && classes.mineMessage
             )}>
-            Message {i} Message {i}
-            Message {i} Message {i}
-            Message {i} Message {i}
-            Message {i} Message {i}
+            {message.content}
           </div>
           <DoneIcon size="16" color="#B7BDCB" />
         </div>
       ),
-    []
+    [messages]
   );
 
   return (

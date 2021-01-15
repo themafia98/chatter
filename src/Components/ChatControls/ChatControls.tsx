@@ -1,6 +1,12 @@
 import clsx from 'clsx';
-import { ChangeEvent, ChangeEventHandler, ReactElement, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  ReactElement,
+  useState,
+  KeyboardEvent,
+} from 'react';
+import { DefaultRootState, useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Control from '../Control/Control';
 import classes from './ChatControls.module.css';
@@ -13,7 +19,18 @@ const ChatControls = (): ReactElement => {
   const [content, setContent] = useState<string>('');
   const dispatch = useDispatch();
 
-  const messages = useSelector((state: ChatStore) => state.messages);
+  const messages = useSelector((state: DefaultRootState) => {
+    const { chatReducer } = state as Record<string, ChatStore>;
+    return chatReducer.messages;
+  });
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!event.ctrlKey || event.key !== 'Enter') {
+      return;
+    }
+
+    handleSendMessage();
+  };
 
   const handleSendMessage = () => {
     const message: Message = {
@@ -26,6 +43,8 @@ const ChatControls = (): ReactElement => {
     };
 
     dispatch(addMessage(message));
+
+    setContent('');
   };
 
   const handleChangeContent: ChangeEventHandler = ({
@@ -35,6 +54,7 @@ const ChatControls = (): ReactElement => {
   return (
     <div className={classes.chatControls}>
       <textarea
+        onKeyDown={handleKeyDown}
         onChange={handleChangeContent}
         placeholder="Type a message here"
         className={classes.text}
