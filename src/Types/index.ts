@@ -2,7 +2,7 @@ export type User = {
   id: number;
   id_user: string;
   name: string;
-  create_date: Date;
+  create_date: string;
 };
 
 export type Chat = {
@@ -19,12 +19,5 @@ export type Message = {
   id_message: string;
   author_id: Pick<User, 'id_user'> | string;
   content: string;
-  timestamp: Date;
-};
-
-export type ChatActions = Record<string, FunctionConstructor> | null;
-
-export type Action = {
-  type: string;
-  payload: any;
+  timestamp: string;
 };
