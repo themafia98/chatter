@@ -6,16 +6,30 @@ import MessagesList from '../MessagesList/MessagesList';
 import PlusIcon from '../PlusIcon/PlusIcon';
 import SearchBlock from '../SearchBlock/SearchBlock';
 import classes from './Container.module.css';
+import { batch, useDispatch, useSelector } from 'react-redux';
+import { ChatStore } from '../../Interfaces';
+import {
+  clearMessages,
+  setChatId,
+} from '../../redux/chatReducer/chatReducer.slice';
 
 const Container = (): ReactElement => {
-  const [chatId, setChatId] = useState<string | null>(null);
+  const dispatch = useDispatch();
+
+  const active_chat_id: string | null = useSelector(state => {
+    const { chatReducer } = state as Record<string, ChatStore>;
+    return chatReducer.active_chat_id;
+  });
 
   const handleSelectChat = (id: string): void => {
-    if (id === chatId) {
+    if (id === active_chat_id) {
       return;
     }
 
-    setChatId(id);
+    batch(() => {
+      dispatch(setChatId(id));
+      dispatch(clearMessages());
+    });
   };
 
   return (
@@ -42,7 +56,7 @@ const Container = (): ReactElement => {
           <MessagesList onSelectChat={handleSelectChat} />
         </div>
         <div className={classes.chat}>
-          <ChatContainer key={chatId} chatId={chatId} />
+          {active_chat_id !== null && <ChatContainer />}
         </div>
       </div>
     </main>

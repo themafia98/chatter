@@ -4,20 +4,12 @@ import ChatControls from '../ChatControls/ChatControls';
 import classes from './ChatContainer.module.css';
 import { ReactElement } from 'react';
 
-type ChatContainerProps = {
-  chatId: string | null;
-};
-
-const ChatContainer = ({ chatId }: ChatContainerProps): ReactElement | null => {
-  if (chatId === null) return null;
-
-  return (
-    <div className={classes.chatContainer}>
-      <ChatHeader chatId={chatId} />
-      <ChatBody />
-      <ChatControls />
-    </div>
-  );
-};
+const ChatContainer = (): ReactElement | null => 
+  <div className={classes.chatContainer}>
+    <ChatHeader />
+    <ChatBody />
+    <ChatControls />
+  </div>
+;
 
 export default ChatContainer;

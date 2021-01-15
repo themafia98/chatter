@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import chatReducer from './chatReducer/chatReducer.slice';
+import appReducer from './appReducer/appReducer.slice';
 
 const middleware = getDefaultMiddleware({
   immutableCheck: true,
@@ -8,7 +9,7 @@ const middleware = getDefaultMiddleware({
 });
 
 export default configureStore({
-  reducer: { chatReducer },
+  reducer: { chatReducer, appReducer },
   middleware,
   devTools: process.env.NODE_ENV !== 'production',
 });

@@ -6,10 +6,17 @@ import clsx from 'clsx';
 type MessageProps = {
   children: string | ReactElement;
   onClick: MouseEventHandler;
+  isActive: boolean;
 };
 
-const Message = ({ children, onClick }: MessageProps): ReactElement => 
-  <div onClick={onClick} className={classes.message}>
+const Message = ({
+  children,
+  onClick,
+  isActive,
+}: MessageProps): ReactElement => 
+  <div
+    onClick={onClick}
+    className={clsx(classes.message, isActive && classes.isActive)}>
     <div className={classes.header}>
       <div className={classes.headerIconWrapper}>
         <div
