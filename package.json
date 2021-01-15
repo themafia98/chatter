@@ -40,7 +40,7 @@
     "eject": "react-scripts eject",
     "lint-staged": "lint-staged",
     "prettier": "prettier --write \"**/*.{ts,js,jsx,tsx,json,scss,css,md}\" --ignore-path .gitignore",
-    "lint:ts": "eslint --ext=jsx,ts,tsx src"
+    "lint:ts": "eslint --ext=jsx,ts,tsx src --fix"
   },
   "eslintConfig": {
     "extends": [

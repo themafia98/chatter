@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { ReactElement, useEffect, useMemo, useRef } from 'react';
+import { Fragment, ReactElement, useEffect, useMemo, useRef } from 'react';
+import DoneIcon from '../DoneIcon/DoneIcon';
 import classes from './ChatBody.module.css';
 
 const ChatBody = (): ReactElement => {
@@ -17,11 +18,19 @@ const ChatBody = (): ReactElement => {
     () =>
       Array.from({ length: 15 }, (_, i) => 
         <div
-          className={clsx(classes.message, i % 2 === 0 && classes.mineMessage)}>
-          Message {i} Message {i}
-          Message {i} Message {i}
-          Message {i} Message {i}
-          Message {i} Message {i}
+          className={clsx(classes.messageWrapper, i % 2 === 0 && classes.mine)}
+          key={i}>
+          <div
+            className={clsx(
+              classes.message,
+              i % 2 === 0 && classes.mineMessage
+            )}>
+            Message {i} Message {i}
+            Message {i} Message {i}
+            Message {i} Message {i}
+            Message {i} Message {i}
+          </div>
+          <DoneIcon size="16" color="#B7BDCB" />
         </div>
       ),
     []
