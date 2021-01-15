@@ -1,27 +1,14 @@
-import {
-  ChangeEvent,
-  ReactElement,
-  useContext,
-  useMemo,
-  useState,
-} from 'react';
+import { ChangeEvent, ReactElement, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import TextInput from '../common/TextInput/TextInput';
 import classes from './SearchBlock.module.css';
 import Select from '../common/Select/Select';
 import SearchIcon from '../SearchIcon/SearchIcon';
 import config from '../../App.config.json';
-import {
-  ChatDispatcherContext,
-  ChatStoreContext,
-} from '../Helpers/ChatContext/ChatContext.context';
 
 const SearchBlock = (): ReactElement => {
   const [searchValue, setSearchValue] = useState<string | number>('');
   const [selectOption, setSelectOption] = useState<string>('');
-
-  const store = useContext(ChatStoreContext);
-  const dispatch = useContext(ChatDispatcherContext);
 
   const handleSearchMessages = ({ target }: ChangeEvent<HTMLInputElement>) =>
     setSearchValue(target.value);

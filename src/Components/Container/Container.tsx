@@ -2,7 +2,6 @@ import { ReactElement, useState } from 'react';
 import ChatContainer from '../ChatContainer/ChatContainer';
 import ChevronDown from '../ChevronDown/ChevronDown';
 import Button from '../common/Button/Button';
-import connectStore from '../Helpers/ChatContext';
 import MessagesList from '../MessagesList/MessagesList';
 import PlusIcon from '../PlusIcon/PlusIcon';
 import SearchBlock from '../SearchBlock/SearchBlock';
@@ -50,4 +49,4 @@ const Container = (): ReactElement => {
   );
 };
 
-export default connectStore(Container);
+export default Container;
