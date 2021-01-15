@@ -25,7 +25,7 @@ const ChatControls = (): ReactElement => {
   });
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!event.ctrlKey || event.key !== 'Enter') {
+    if (!content || !event.ctrlKey || event.key !== 'Enter') {
       return;
     }
 
@@ -43,7 +43,6 @@ const ChatControls = (): ReactElement => {
     };
 
     dispatch(addMessage(message));
-
     setContent('');
   };
 

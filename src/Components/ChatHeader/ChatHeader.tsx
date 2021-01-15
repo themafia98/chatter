@@ -3,11 +3,7 @@ import avatar from './avatar.jpg';
 import Control from '../Control/Control';
 import { MouseEvent, ReactElement } from 'react';
 
-type ChatHeaderProps = {
-  chatId: string;
-};
-
-const ChatHeader = ({ chatId }: ChatHeaderProps): ReactElement => {
+const ChatHeader = (): ReactElement => {
   const handleFileControl = (e: MouseEvent) => {
     e.stopPropagation();
   };
@@ -25,10 +21,8 @@ const ChatHeader = ({ chatId }: ChatHeaderProps): ReactElement => {
       </div>
       <div className={classes.userWrapper}>
         <div>
-          <div className={classes.userName}>Luy Robin {chatId}</div>
-          <div className={classes.userStatus}>
-            last online {5 + +chatId} min ago
-          </div>
+          <div className={classes.userName}>Luy Robin</div>
+          <div className={classes.userStatus}>last online 5 min ago</div>
         </div>
         <div className={classes.controls}>
           <Control onClick={handleFileControl}>

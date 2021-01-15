@@ -5,13 +5,21 @@ import classes from './SearchBlock.module.css';
 import Select from '../../common/Select/Select';
 import SearchIcon from '../SearchIcon/SearchIcon';
 import config from '../../App.config.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchValue } from '../../redux/appReducer/appReducer.slice';
+import { AppStore } from '../../Interfaces';
 
 const SearchBlock = (): ReactElement => {
-  const [searchValue, setSearchValue] = useState<string | number>('');
   const [selectOption, setSelectOption] = useState<string>('');
+  const dispatch = useDispatch();
+
+  const searchValue = useSelector(state => {
+    const { appReducer } = state as Record<string, AppStore>;
+    return appReducer.search.value || '';
+  });
 
   const handleSearchMessages = ({ target }: ChangeEvent<HTMLInputElement>) =>
-    setSearchValue(target.value);
+    dispatch(setSearchValue(target.value));
 
   const handleSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
     if (typeof event === 'string') {

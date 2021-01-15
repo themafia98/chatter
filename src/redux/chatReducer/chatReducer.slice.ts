@@ -1,11 +1,10 @@
 import { ChatStore } from '../../Interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Message } from '../../Types';
+import { Chat, Message } from '../../Types';
 
 const initialState: ChatStore = {
   chats: null,
   active_chat_id: null,
-  users: null,
   messages: null,
 };
 
@@ -14,29 +13,38 @@ const chatReducer = createSlice({
   initialState,
   reducers: {
     addMessage: {
-      reducer: (state, { payload }: PayloadAction<Message>) => {
+      reducer: (state: ChatStore, { payload }: PayloadAction<Message>) => {
         state.messages =
           state.messages !== null ? [...state.messages, payload] : [payload];
       },
       prepare: (message: Message) => ({ payload: message }),
     },
-    deleteMessage: {
-      reducer: (state, { payload }: PayloadAction<string>) => {
-        const { messages } = state;
-
-        if (messages === null) {
-          return;
-        }
-
-        state.messages = messages.filter(
-          (message: Message) => message.id_message !== payload
-        );
+    clearMessages: {
+      reducer: (state: ChatStore) => {
+        state.messages = [];
       },
-      prepare: (id: string) => ({ payload: id }),
+      prepare: () => ({ payload: null }),
+    },
+    setChatId: {
+      reducer: (state, { payload }: PayloadAction<string>) => {
+        state.active_chat_id = payload;
+      },
+      prepare: (chatId: string) => ({ payload: chatId }),
+    },
+    loadChats: {
+      reducer: (state, { payload }: PayloadAction<Array<Chat>>) => {
+        state.chats = payload;
+      },
+      prepare: (chats: Array<Chat>) => ({ payload: chats }),
     },
   },
 });
 
-export const { addMessage, deleteMessage } = chatReducer.actions;
+export const {
+  addMessage,
+  clearMessages,
+  setChatId,
+  loadChats,
+} = chatReducer.actions;
 
 export default chatReducer.reducer;
