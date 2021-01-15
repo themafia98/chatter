@@ -25,7 +25,7 @@
   border-radius: 0px 10px 10px 10px;
   margin-bottom: 15px;
   padding: 25px;
-
+  justify-content: flex-start;
   font-family: TT Norms;
   font-size: 16px;
   line-height: 26px;
@@ -38,6 +38,18 @@
   box-sizing: border-box;
   box-shadow: 10px 10px 25px rgba(112, 124, 151, 0.05),
     15px 15px 35px rgba(112, 124, 151, 0.05);
-  align-self: flex-end;
   color: #707c97;
+}
+
+.messageWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.messageWrapper :global(svg) {
+  padding: 0 10px;
+}
+
+.mine {
+  justify-content: flex-end;
 }

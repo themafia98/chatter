@@ -1,0 +1,1 @@
+export const ADD_MESSAGE: Readonly<string> = 'ADD_MESSAGE';
