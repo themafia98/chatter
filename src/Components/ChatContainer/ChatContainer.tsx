@@ -11,5 +11,4 @@ const ChatContainer = (): ReactElement | null =>
     <ChatControls />
   </div>
 ;
-
 export default ChatContainer;

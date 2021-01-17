@@ -20,7 +20,7 @@
 
 .chat {
   display: flex;
-  max-width: 850px;
+  flex-grow: 1;
   justify-content: center;
   width: 100%;
 }

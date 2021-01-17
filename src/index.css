@@ -10,9 +10,6 @@ body {
 }
 
 #root {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 1920px;
 }
 
 @font-face {
@@ -40,5 +37,5 @@ body {
 }
 
 :root {
-  --topMarginContainer: 82px;
+  --topMarginContainer: 52px;
 }
