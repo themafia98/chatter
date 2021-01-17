@@ -1,9 +1,4 @@
-export type User = {
-  id: number;
-  id_user: string;
-  name: string;
-  create_date: string;
-};
+import { User } from '../Interfaces';
 
 export type Chat = {
   id: number;
@@ -20,4 +15,9 @@ export type Message = {
   author_id: Pick<User, 'id_user'> | string;
   content: string;
   timestamp: string;
+};
+
+export type LoginData = {
+  password: string;
+  login: string;
 };

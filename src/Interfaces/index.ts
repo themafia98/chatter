@@ -1,4 +1,16 @@
-import { Chat, Message, User } from '../Types';
+import { Chat, Message } from '../Types';
+
+export interface User {
+  id: number;
+  id_user: string;
+  name: string;
+  create_date: string;
+}
+
+export interface PrivateUser extends User {
+  password: string;
+  token: string;
+}
 
 export interface ChatStore {
   chats: Array<Chat> | null;
@@ -7,6 +19,7 @@ export interface ChatStore {
 }
 
 export interface AppStore {
+  system: { user: null | User };
   users: Array<User> | null;
   search: { value?: string };
 }

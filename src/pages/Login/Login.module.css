@@ -1,0 +1,52 @@
+.container {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0 auto;
+  flex-direction: column;
+  background: linear-gradient(180deg, #f3f3fb 0%, #fdfbfd 100%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 0 0 20%;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  flex: 0 0 80%;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapperFormInput {
+  padding-left: 0;
+  margin-bottom: 5px;
+}
+
+.formInput {
+  padding: 0;
+}
+
+.formInput::placeholder {
+  text-align: start;
+}
+
+.formLabel {
+  text-align: center;
+  padding: 5px;
+}
+
+.message {
+  font-weight: bold;
+  color: #da3838;
+}

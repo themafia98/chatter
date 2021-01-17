@@ -4,20 +4,24 @@ import classes from './TextInput.module.css';
 
 type TextInputType = {
   className?: string;
+  wrapperClassName?: string;
   placeholder?: string;
   value?: string | number;
   onChange?: ChangeEventHandler;
   disabled?: boolean;
   icon?: ReactElement;
+  type?: string;
 };
 
 const TextInput = ({
   className,
+  wrapperClassName,
   value,
   onChange,
   placeholder,
   disabled,
   icon,
+  type,
 }: TextInputType): ReactElement => {
   const [isFocus, setFocus] = useState<boolean>(false);
 
@@ -27,14 +31,14 @@ const TextInput = ({
   const shouldShowIcon = !value && !isFocus;
 
   return (
-    <div className={classes.inputWrapper}>
+    <div className={clsx(classes.inputWrapper, wrapperClassName)}>
       {shouldShowIcon && icon}
       <input
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={onChange}
         className={clsx(classes.input, className)}
-        type="text"
+        type={type}
         placeholder={!isFocus ? placeholder : ''}
         value={value}
         disabled={disabled}
@@ -46,9 +50,11 @@ const TextInput = ({
 TextInput.defaultProps = {
   value: '',
   className: '',
+  wrapperClassName: '',
   onChange: null,
   disabled: false,
   icon: null,
+  type: 'text',
 };
 
 export default TextInput;

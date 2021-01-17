@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 290px;
   padding-top: var(--topMarginContainer);
+  max-height: calc(98vh - var(--topMarginContainer));
 }
 
 .informSection {
