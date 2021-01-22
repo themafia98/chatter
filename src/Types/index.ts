@@ -21,3 +21,5 @@ export type LoginData = {
   password: string;
   login: string;
 };
+
+export type ChatType = 'common' | 'tasks';

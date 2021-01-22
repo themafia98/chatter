@@ -1,4 +1,4 @@
-import { Chat, Message } from '../Types';
+import { Chat, Message, ChatType } from '../Types';
 
 export interface User {
   id: number;
@@ -16,6 +16,7 @@ export interface ChatStore {
   chats: Array<Chat> | null;
   active_chat_id: string | null;
   messages: Array<Message> | null;
+  chatType: ChatType;
 }
 
 export interface AppStore {

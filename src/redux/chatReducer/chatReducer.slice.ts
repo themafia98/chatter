@@ -1,11 +1,12 @@
 import { ChatStore } from '../../Interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Chat, Message } from '../../Types';
+import { Chat, Message, ChatType } from '../../Types';
 
 const initialState: ChatStore = {
   chats: null,
   active_chat_id: null,
   messages: null,
+  chatType: 'common',
 };
 
 const chatReducer = createSlice({
@@ -37,6 +38,15 @@ const chatReducer = createSlice({
       },
       prepare: (chats: Array<Chat>) => ({ payload: chats }),
     },
+    setChatType: {
+      reducer: (state, { payload }: PayloadAction<ChatType>) => {
+        state.chatType = payload;
+        state.chats = null;
+        state.active_chat_id = null;
+        state.messages = null;
+      },
+      prepare: (chatType: ChatType) => ({ payload: chatType }),
+    },
   },
 });
 
@@ -45,6 +55,7 @@ export const {
   clearMessages,
   setChatId,
   loadChats,
+  setChatType,
 } = chatReducer.actions;
 
 export default chatReducer.reducer;

@@ -1,6 +1,14 @@
-import { MouseEventHandler, ReactElement, useCallback, useEffect } from 'react';
+import {
+  MouseEventHandler,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChatStore } from '../../Interfaces';
+import usePrevious from '../../hooks/usePrevious';
+import { AppStore, ChatStore } from '../../Interfaces';
 import { loadChats } from '../../redux/chatReducer/chatReducer.slice';
 import { Chat } from '../../Types';
 import Message from '../Message/Message';
@@ -13,17 +21,27 @@ type MessagesListProps = {
 const MessagesList = ({
   onSelectChat,
 }: MessagesListProps): ReactElement | null => {
+  const [isLoading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
 
-  const chats: Array<Chat> | null = useSelector(state => {
-    const { chatReducer } = state as Record<string, ChatStore>;
-    return chatReducer.chats;
-  });
+  const { chatsList, active_chat_id, chatType, searchValue } = useSelector(
+    state => {
+      const { appReducer } = state as Record<string, AppStore>;
+      const { chatReducer } = state as Record<string, ChatStore>;
 
-  const active_chat_id: string | null = useSelector(state => {
-    const { chatReducer } = state as Record<string, ChatStore>;
-    return chatReducer.active_chat_id;
-  });
+      const { value: searchValue } = appReducer.search;
+      const { chats: chatsList, active_chat_id, chatType } = chatReducer;
+
+      return {
+        chatsList,
+        active_chat_id,
+        chatType,
+        searchValue,
+      };
+    }
+  );
+
+  const prevChatType = usePrevious(chatType);
 
   const createHandleSelectChat = useCallback(
     (id: string): MouseEventHandler => () => onSelectChat(id),
@@ -31,27 +49,73 @@ const MessagesList = ({
   );
 
   const fetchFakeChats = useCallback(async () => {
-    const { chats } = await import('./fakeApi.json');
+    try {
+      if (isLoading || (chatsList && prevChatType === chatType)) {
+        return;
+      }
 
-    dispatch(loadChats(chats));
-  }, []);
+      setLoading(true);
+
+      const { chats } = await import('./fakeApi.json');
+
+      if (chats) {
+        setLoading(false);
+        dispatch(loadChats(chats));
+      }
+    } catch {
+      setLoading(false);
+    }
+  }, [chatType]);
 
   useEffect(() => {
     fetchFakeChats();
-  }, []);
+  }, [fetchFakeChats]);
 
-  if (!chats) {
-    return null;
+  const filteredChats = useMemo(
+    () =>
+      chatsList?.length
+        ? chatsList.filter((message: Chat) => {
+            if (!searchValue) return true;
+
+            const messageKeys: string[] = Object.keys(message);
+
+            for (const key of messageKeys) {
+              const { [key]: value = '' } = message as Record<string, any>;
+
+              if (['id', 'chat_id'].some(it => it === key)) {
+                continue;
+              }
+
+              if (
+                value === searchValue ||
+                (typeof value === 'string' &&
+                  value.toLowerCase().includes(searchValue.toLowerCase()))
+              ) {
+                return true;
+              }
+            }
+
+            return false;
+          })
+        : null,
+    [searchValue, chatsList]
+  );
+
+  if (filteredChats === null) return null;
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
   return (
     <div className={classes.messagesList}>
-      {chats.map((chat: Chat) => 
+      {filteredChats.map((chat: Chat) => 
         <Message
+          shouldHighlight={!!searchValue}
           isActive={active_chat_id === chat.chat_id}
           onClick={createHandleSelectChat(`${chat.chat_id}`)}
           key={chat.id}>
-          {`recipient_id: ${chat.recipient_id}`}
+          {`${chat.recipient_id}`}
         </Message>
       )}
     </div>

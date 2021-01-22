@@ -1,7 +1,7 @@
 {
   "options": {
     "chatContainers": [
-      { "value": "messages", "name": "Messages" },
+      { "value": "common", "name": "Messages" },
       { "value": "tasks", "name": "Tasks" }
     ]
   }
