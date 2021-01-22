@@ -5,17 +5,25 @@ import classes from './SearchBlock.module.css';
 import Select from '../../common/Select/Select';
 import SearchIcon from '../SearchIcon/SearchIcon';
 import config from '../../App.config.json';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { setSearchValue } from '../../redux/appReducer/appReducer.slice';
-import { AppStore } from '../../Interfaces';
+import { AppStore, ChatStore } from '../../Interfaces';
+import { ChatType } from '../../Types';
+import { setChatType } from '../../redux/chatReducer/chatReducer.slice';
 
 const SearchBlock = (): ReactElement => {
-  const [selectOption, setSelectOption] = useState<string>('');
   const dispatch = useDispatch();
 
-  const searchValue = useSelector(state => {
+  const { searchValue, selectOption } = useSelector(state => {
     const { appReducer } = state as Record<string, AppStore>;
-    return appReducer.search.value || '';
+    const { chatReducer } = state as Record<string, ChatStore>;
+    const { value: searchValue = '' } = appReducer.search;
+    const { chatType: selectOption } = chatReducer;
+
+    return {
+      searchValue,
+      selectOption,
+    };
   });
 
   const handleSearchMessages = ({ target }: ChangeEvent<HTMLInputElement>) =>
@@ -23,7 +31,8 @@ const SearchBlock = (): ReactElement => {
 
   const handleSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
     if (typeof event === 'string') {
-      setSelectOption(event);
+      searchValue && dispatch(setSearchValue(''));
+      dispatch(setChatType(event));
       return;
     }
 
@@ -31,7 +40,8 @@ const SearchBlock = (): ReactElement => {
       return;
     }
 
-    setSelectOption(event.target.value);
+    searchValue && dispatch(setSearchValue(''));
+    dispatch(setChatType(event.target.value as ChatType));
   };
 
   const options = useMemo(

@@ -9,9 +9,11 @@ import classes from './ChatBody.module.css';
 const ChatBody = (): ReactElement => {
   const chatBodyRef = useRef<null | HTMLDivElement>(null);
 
-  const messages = useSelector((state: DefaultRootState) => {
+  const originalMessages = useSelector((state: DefaultRootState) => {
     const { chatReducer } = state as Record<string, ChatStore>;
-    return chatReducer.messages;
+    const { messages: originalMessages } = chatReducer;
+
+    return originalMessages;
   });
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const ChatBody = (): ReactElement => {
 
   const messageList = useMemo(
     () =>
-      messages?.map((message: Message) => 
+      originalMessages?.map((message: Message) => 
         <div
           className={clsx(
             classes.messageWrapper,
@@ -41,7 +43,7 @@ const ChatBody = (): ReactElement => {
           <DoneIcon size="16" color="#B7BDCB" />
         </div>
       ),
-    [messages]
+    [originalMessages]
   );
 
   return (

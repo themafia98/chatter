@@ -56,7 +56,7 @@ const Container = (): ReactElement => {
           <MessagesList onSelectChat={handleSelectChat} />
         </div>
         <div className={classes.chat}>
-          {active_chat_id !== null && <ChatContainer />}
+          <ChatContainer activeChatId={active_chat_id} />
         </div>
       </div>
     </main>
