@@ -1,6 +1,7 @@
 {
   "name": "runtime-chatter",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
@@ -12,6 +13,7 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "clsx": "^1.1.1",
+    "http-proxy-middleware": "^1.0.6",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
     "moment": "^2.29.1",
@@ -26,6 +28,7 @@
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
+    "@types/http-proxy-middleware": "^0.19.3",
     "@types/react-redux": "^7.1.15",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
