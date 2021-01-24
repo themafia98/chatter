@@ -1,0 +1,22 @@
+.roomForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.roomNameInput {
+  width: unset;
+  padding-left: 0;
+  padding-bottom: 5px;
+}
+
+.submitButton {
+  margin-top: 5px;
+}
+
+.select {
+  width: 100%;
+}

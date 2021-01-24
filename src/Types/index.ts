@@ -4,8 +4,9 @@ export type Chat = {
   id: number;
   bucket?: string;
   chat_id: string;
-  sender_id: Pick<User, 'id_user'> | string;
-  recipient_id: Pick<User, 'id_user'> | string;
+  sender_id?: Pick<User, 'id_user'> | string;
+  recipient_id?: Pick<User, 'id_user'> | string;
+  usersIds?: string[];
 };
 
 export type Message = {

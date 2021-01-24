@@ -24,3 +24,9 @@ export interface AppStore {
   users: Array<User> | null;
   search: { value?: string };
 }
+
+export interface ChatForm {
+  roomName: string;
+  chatType: string;
+  usersIds: string[];
+}
