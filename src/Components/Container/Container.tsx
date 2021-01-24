@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { MouseEvent, MouseEventHandler, ReactElement, useState } from 'react';
 import ChatContainer from '../ChatContainer/ChatContainer';
 import ChevronDown from '../ChevronDown/ChevronDown';
 import Button from '../../common/Button/Button';
@@ -12,8 +12,11 @@ import {
   clearMessages,
   setChatId,
 } from '../../redux/chatReducer/chatReducer.slice';
+import Modal from '../Modal/Modal';
 
 const Container = (): ReactElement => {
+  const [visibleModal, setVisibleModal] = useState<boolean>(false);
+
   const dispatch = useDispatch();
 
   const active_chat_id: string | null = useSelector(state => {
@@ -32,34 +35,46 @@ const Container = (): ReactElement => {
     });
   };
 
+  const handleModalVisibility: MouseEventHandler = () =>
+    setVisibleModal(!visibleModal);
+
   return (
-    <main className={classes.chatContainer}>
-      <div className={classes.content}>
-        <div className={classes.chatList}>
-          <div className={classes.chatsListHeader}>
-            <div>
-              <p className={classes.title}>Chats</p>
-              <p className={classes.recentChats}>
-                Recent Chats
-                <ChevronDown color="#707C97" />
-              </p>
+    <>
+      <Modal
+        title="Создание чата"
+        onVisibilityChange={handleModalVisibility}
+        visible={visibleModal}>
+        <p>Modal</p>
+      </Modal>
+      <main className={classes.chatContainer}>
+        <div className={classes.content}>
+          <div className={classes.chatList}>
+            <div className={classes.chatsListHeader}>
+              <div>
+                <p className={classes.title}>Chats</p>
+                <p className={classes.recentChats}>
+                  Recent Chats
+                  <ChevronDown color="#707C97" />
+                </p>
+              </div>
+              <div>
+                <Button
+                  onClick={handleModalVisibility}
+                  icon={<PlusIcon size="24" />}
+                  className={classes.createChatButton}>
+                  Create new Chat
+                </Button>
+              </div>
             </div>
-            <div>
-              <Button
-                icon={<PlusIcon size="24" />}
-                className={classes.createChatButton}>
-                Create new Chat
-              </Button>
-            </div>
+            <SearchBlock />
+            <MessagesList onSelectChat={handleSelectChat} />
           </div>
-          <SearchBlock />
-          <MessagesList onSelectChat={handleSelectChat} />
+          <div className={classes.chat}>
+            <ChatContainer activeChatId={active_chat_id} />
+          </div>
         </div>
-        <div className={classes.chat}>
-          <ChatContainer activeChatId={active_chat_id} />
-        </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
 
