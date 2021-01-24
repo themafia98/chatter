@@ -1,4 +1,4 @@
-import { MouseEvent, MouseEventHandler, ReactElement, useState } from 'react';
+import { MouseEventHandler, ReactElement, useState } from 'react';
 import ChatContainer from '../ChatContainer/ChatContainer';
 import ChevronDown from '../ChevronDown/ChevronDown';
 import Button from '../../common/Button/Button';
@@ -12,7 +12,8 @@ import {
   clearMessages,
   setChatId,
 } from '../../redux/chatReducer/chatReducer.slice';
-import Modal from '../Modal/Modal';
+import Modal from '../../common/Modal/Modal';
+import RoomCreater from '../RoomCreater/RoomCreater';
 
 const Container = (): ReactElement => {
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
@@ -44,7 +45,7 @@ const Container = (): ReactElement => {
         title="Создание чата"
         onVisibilityChange={handleModalVisibility}
         visible={visibleModal}>
-        <p>Modal</p>
+        <RoomCreater afterSubmitCallback={handleModalVisibility} />
       </Modal>
       <main className={classes.chatContainer}>
         <div className={classes.content}>

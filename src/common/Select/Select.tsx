@@ -8,8 +8,9 @@ type SelectType = {
   name: string;
   disabled?: boolean;
   onChange?: ChangeEventHandler;
-  value: string;
-  options: JSX.Element[];
+  value: string | string[];
+  options: JSX.Element[] | null;
+  multiple?: boolean;
 };
 
 const Select = ({
@@ -20,6 +21,7 @@ const Select = ({
   value,
   onChange,
   options,
+  multiple,
 }: SelectType): ReactElement => {
   const selectRef = useRef<null | HTMLSelectElement>(null);
 
@@ -41,6 +43,7 @@ const Select = ({
       name={name}
       placeholder={placeholder}
       onChange={onChange}
+      multiple={multiple}
       value={value}>
       {options}
     </select>
@@ -50,6 +53,7 @@ const Select = ({
 Select.defaultProps = {
   className: '',
   disabled: false,
+  multiple: false,
 };
 
 export default Select;

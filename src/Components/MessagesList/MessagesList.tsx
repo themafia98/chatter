@@ -115,7 +115,7 @@ const MessagesList = ({
           isActive={active_chat_id === chat.chat_id}
           onClick={createHandleSelectChat(`${chat.chat_id}`)}
           key={chat.id}>
-          {`${chat.recipient_id}`}
+          {chat.recipient_id ? `${chat.recipient_id}` : ''}
         </Message>
       )}
     </div>

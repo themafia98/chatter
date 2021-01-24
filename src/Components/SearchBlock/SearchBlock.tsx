@@ -29,7 +29,7 @@ const SearchBlock = (): ReactElement => {
   const handleSearchMessages = ({ target }: ChangeEvent<HTMLInputElement>) =>
     dispatch(setSearchValue(target.value));
 
-  const handleSelectOptions = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleSelectOptions = (event: ChangeEvent<HTMLSelectElement>) => {
     if (typeof event === 'string') {
       searchValue && dispatch(setSearchValue(''));
       dispatch(setChatType(event));
