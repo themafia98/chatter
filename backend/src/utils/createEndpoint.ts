@@ -1,10 +1,9 @@
 import { Application, Router } from "express";
 
-
 export default (app: Application) => {
-    const router = Router();
+  const router = Router();
 
-    app.use('/api', router);
+  app.use("/api", router);
 
-    return router;
+  return router;
 };

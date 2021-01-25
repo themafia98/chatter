@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@tsconfig/node14/tsconfig.json",
   "display": "Node 14",
- 
+
   "compilerOptions": {
     "lib": ["es2020"],
     "module": "commonjs",
@@ -13,5 +13,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
-  }  
+  }
 }
