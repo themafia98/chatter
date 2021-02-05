@@ -27,6 +27,6 @@ export interface AppStore {
 
 export interface ChatForm {
   roomName: string;
-  chatType: string;
+  chatType: ChatType;
   usersIds: string[];
 }

@@ -1,4 +1,4 @@
-import { Request, Response, response } from "express";
+import { Request, Response } from "express";
 
 namespace AuthController {
   export const login = async (req: Request, res: Response) => {
