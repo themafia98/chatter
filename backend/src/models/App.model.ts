@@ -1,6 +1,5 @@
 import { Server } from "http";
 import express, { Application, Router } from "express";
-import socketIO from "socket.io";
 import catchUncatched from "../utils/catchUncatched";
 import createEndpoint from "../utils/createEndpoint";
 import useGlobalMiddlewares from "../middleware/useGlobalMiddlewares";
@@ -10,8 +9,6 @@ class App {
   private instanseApp: Application;
   private router: Router;
   private server: Server | null = null;
-  /** TODO: should be implement in future releases */
-  private clientWs: socketIO.Server | null = null;
 
   constructor(port: string) {
     this.instanseApp = express();
@@ -24,7 +21,6 @@ class App {
       console.log("Server is running...")
     );
 
-    this.clientWs = new socketIO.Server(this.server);
   }
 
   private registerMiddlewares(): void {
