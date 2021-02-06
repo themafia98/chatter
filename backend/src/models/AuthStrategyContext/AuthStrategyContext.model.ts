@@ -13,32 +13,33 @@ class AuthStrategyContext {
   }
 
   public apply() {
-    if (this.strategyContext) {
-      console.warn("Auth strategy already initialized");
-      return;
-    }
-
     switch (this.strategyContext) {
       /** TODO: should be improve strategy middlewares, is not working now */
 
-      case STRATEGY_CONTEXT.DEFAULT: {
+      case STRATEGY_CONTEXT.LOCAL: {
         passport.use(
-          new DefaultStrategy(async (username, password, done) => {
-            const currentDefaultUser = await db.User.findOne({
-              where: { name: username },
-            });
+          new DefaultStrategy(
+            {
+              usernameField: "email",
+              passwordField: "password",
+            },
+            async (email, password, done) => {
+              const currentDefaultUser = await db.User.findOne({
+                where: { email },
+              });
 
-            if (!currentDefaultUser) {
-              done(null, false, { message: "Incorrect username." });
-              return;
+              if (!currentDefaultUser) {
+                done(null, false, { message: "Incorrect email." });
+                return;
+              }
+
+              if (!db.User.correctPassword(password)) {
+                return done(null, false, { message: "Incorrect password." });
+              }
+
+              return done(null, currentDefaultUser);
             }
-
-            if (!currentDefaultUser.validate() || !password) {
-              return done(null, false, { message: "Incorrect password." });
-            }
-
-            return done(null, currentDefaultUser);
-          })
+          )
         );
       }
 
