@@ -1,0 +1,4 @@
+export const STRATEGY_CONTEXT = {
+  OPENID: "OPENID",
+  DEFAULT: "DEFAULT",
+};

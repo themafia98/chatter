@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Model, ModelCtor, Sequelize } from "sequelize";
 import { initUser } from "./User/User.db";
 import config from "../config/config";
 
@@ -13,7 +13,7 @@ const db = {
   User: initUser(sequelize),
 };
 
-Object.values(db).forEach((model: { associate: (db: object) => void }) => {
+Object.values(db).forEach((model: any) => {
   if (model.associate) {
     model.associate(db);
   }
