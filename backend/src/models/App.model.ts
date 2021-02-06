@@ -4,6 +4,7 @@ import catchUncatched from "../utils/catchUncatched";
 import createEndpoint from "../utils/createEndpoint";
 import useGlobalMiddlewares from "../middleware/useGlobalMiddlewares";
 import authRouteRegister from "../routes/v1/Auth.route";
+import useAuthMiddleware from "../middleware/useAuthMiddleware";
 
 class App {
   private instanseApp: Application;
@@ -20,12 +21,12 @@ class App {
     this.server = this.instanseApp.listen(this.instanseApp.get("port"), () =>
       console.log("Server is running...")
     );
-
   }
 
   private registerMiddlewares(): void {
     catchUncatched(this.server as Server);
     useGlobalMiddlewares(this.instanseApp);
+    useAuthMiddleware();
   }
 
   private defineRoutes(): void {

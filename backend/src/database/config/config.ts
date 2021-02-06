@@ -1,16 +1,16 @@
-require('dotenv').config();
+require("dotenv").config();
 
 export default {
   development: {
     url: process.env.DATABASE_URL,
-    dialect: 'postgres',
+    dialect: "postgres",
   },
   test: {
     url: process.env.DATABASE_URL,
-    dialect: 'postgres',
+    dialect: "postgres",
   },
   production: {
     url: process.env.DATABASE_URL,
-    dialect: 'postgres',
+    dialect: "postgres",
   },
-}
+};
