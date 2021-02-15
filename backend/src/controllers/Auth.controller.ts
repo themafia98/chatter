@@ -32,6 +32,15 @@ namespace AuthController {
       }
     )(req, res, next);
   }
+
+  export const authenticate = (req: Request, res: Response) => {
+
+    if (req.isAuthenticated()) {
+      res.sendStatus(200);
+    }
+
+    res.sendStatus(403);
+  }
 }
 
 export default AuthController;

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   ChangeEvent,
   ChangeEventHandler,
@@ -6,45 +7,71 @@ import {
   ReactElement,
   useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
 import Button from '../../common/Button/Button';
 import TextInput from '../../common/TextInput/TextInput';
-import { User } from '../../Interfaces';
-import { loadUser } from '../../redux/appReducer/appReducer.slice';
+import Request from '../../models/Request.model';
 import { LoginData } from '../../Types';
 import classes from './Login.module.css';
 
 const Login = (): ReactElement => {
   const [message, setShowMessage] = useState<string>('');
   const [formData, setFormData] = useState<LoginData>(() => ({
-    login: 'Pavel',
+    email: 'admin@admin.ru',
     password: '',
   }));
 
-  const dispatch = useDispatch();
+  const sendFormData = async (): Promise<void | null> => {
+    const validFormData = new FormData();
 
-  const sendFormData = async (): Promise<User | null> => {
+    Object.keys(formData).forEach((key: any) => {
+      const { [key]: currentValue } = formData as Record<string, string>;
+
+      validFormData.append(key, currentValue);
+    });
     try {
-      const user = (await import('./fakeUserApi.json')).default;
-      return user;
+      const request = new Request();
+
+      const response = await request.send(
+        '/login',
+        'POST',
+        validFormData,
+        true,
+        {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          useCredentails: 'include',
+        }
+      );
+
+      if (response.status !== 200 && response.status !== 204) {
+        throw new Error('bad auth');
+      }
+
+      const { redirect = '', message = '' } = response.data as Record<
+        string,
+        string
+      >;
+
+      const shouldUseRedirect =
+        redirect && redirect !== window.location.pathname;
+
+      if (!shouldUseRedirect && message) {
+        setShowMessage(message);
+        return;
+      }
+
+      if (shouldUseRedirect) {
+        window.location.assign(redirect);
+      }
     } catch (error) {
-      return null;
+      // eslint-disable-next-line
+      console.error(error);
     }
   };
 
   const handleSubmitForm: FormEventHandler = async (
     e: MouseEvent
   ): Promise<void> => {
-    if (message) setShowMessage('');
-
-    const user: User | null = await sendFormData();
-
-    if (!user) {
-      setShowMessage('Invalid');
-      return;
-    }
-
-    dispatch(loadUser(user));
+    sendFormData();
   };
 
   const handleChangeFormInputs: ChangeEventHandler = ({
@@ -52,7 +79,7 @@ const Login = (): ReactElement => {
   }: ChangeEvent<HTMLInputElement>): void =>
     setFormData({
       ...formData,
-      [target.type !== 'password' ? 'login' : 'password']: target.value,
+      [target.type !== 'password' ? 'email' : 'password']: target.value,
     });
 
   return (
@@ -63,9 +90,10 @@ const Login = (): ReactElement => {
           {message && <p className={classes.message}>{message}</p>}
           <label className={classes.formLabel}>Login</label>
           <TextInput
+            placeholder="email"
             className={classes.formInput}
             wrapperClassName={classes.wrapperFormInput}
-            value={formData.login}
+            value={formData.email}
             onChange={handleChangeFormInputs}
             />
           <label className={classes.formLabel}>Password</label>
