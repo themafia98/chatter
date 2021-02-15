@@ -18,7 +18,7 @@ export type Message = {
 
 export type LoginData = {
   password: string;
-  login: string;
+  email: string;
 };
 
 export type ChatType = 'common' | 'tasks';

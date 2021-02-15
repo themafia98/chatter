@@ -19,13 +19,16 @@
 .main {
   display: flex;
   width: 100%;
-  flex: 0 0 80%;
+  max-width: 400px;
+  flex: 0 0 50%;
   justify-content: center;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  width: 100%;
 }
 
 .wrapperFormInput {
@@ -34,6 +37,7 @@
 }
 
 .formInput {
+  width: 100%;
   padding: 0;
 }
 
@@ -49,4 +53,6 @@
 .message {
   font-weight: bold;
   color: #da3838;
+  margin: 0;
+  text-align: center;
 }
