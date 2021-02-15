@@ -11,11 +11,11 @@ export interface UserAttributes {
   photo: string;
   openId: string;
   salt: string;
-}
 
 export interface ExpressUser extends Express.User {
   id: string;
 }
+
 
 export interface UserModel extends ModelCtor<Model<UserAttributes, any>> {
   encryptPassword(plainPassword: string, salt: BinaryLike): string;

@@ -3,6 +3,7 @@ import crypto, { BinaryLike } from "crypto";
 import { DATE, Sequelize, CHAR, UUIDV4 } from "sequelize";
 import { UserAttributes, UserModel } from "../../../interfaces";
 
+
 export function initUser(sequalize: Sequelize): UserModel {
   const attributes: SequelizeAttributes<UserAttributes> = {
     id_user: {
@@ -12,6 +13,7 @@ export function initUser(sequalize: Sequelize): UserModel {
       defaultValue: UUIDV4,
     },
     name: { type: CHAR, allowNull: false },
+
     email: { type: CHAR, allowNull: false },
     create_date: { type: DATE, allowNull: false },
     password: {
