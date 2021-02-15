@@ -1,4 +1,5 @@
 import passport from "passport";
+import globalConfig from "../config/global.config";
 import db from "../database/models";
 import { ExpressUser } from "../interfaces";
 import { STRATEGY_CONTEXT } from "../models/AuthStrategyContext/AuthStrategyContext.constant";
@@ -18,5 +19,5 @@ export default () => {
     done(null, currentUser);
   });
 
-  new AuthStrategyContext(STRATEGY_CONTEXT.DEFAULT).apply();
+  new AuthStrategyContext(globalConfig.AUTH_STRATEGY).apply();
 };
