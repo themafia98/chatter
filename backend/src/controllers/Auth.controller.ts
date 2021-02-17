@@ -1,10 +1,26 @@
 import { Request, Response, NextFunction } from "express";
 import passport from "passport";
 import globalConfig from "../config/global.config";
+import db from "../database/models";
 import { ExpressUser } from "../interfaces";
 
 namespace AuthController {
-  export const register = async (req: Request, res: Response) => {
+  export const registration = async (req: Request, res: Response) => {
+    console.log(req.body);
+
+    if (!req.body || typeof req.body !== "object") {
+      res.sendStatus(403);
+      return;
+    }
+
+    try {
+      await db.User.create(req.body);
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(403);
+      return;
+    }
+
     res.sendStatus(200);
   };
 
@@ -31,16 +47,15 @@ namespace AuthController {
         });
       }
     )(req, res, next);
-  }
+  };
 
   export const authenticate = (req: Request, res: Response) => {
-
     if (req.isAuthenticated()) {
       res.sendStatus(200);
     }
 
     res.sendStatus(403);
-  }
+  };
 }
 
 export default AuthController;

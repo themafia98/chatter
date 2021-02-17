@@ -56,3 +56,27 @@
   margin: 0;
   text-align: center;
 }
+
+.enterButton {
+  margin-bottom: 5px;
+}
+
+.regForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.regFormTextInputWrapper {
+  width: unset;
+  margin-bottom: 5px;
+}
+
+.regFormTextInput {
+  padding: 15px 15px 15px 5px;
+  padding-left: unset;
+}
+
+.contentModal {
+  height: 100%;
+}
