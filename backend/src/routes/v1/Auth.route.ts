@@ -12,7 +12,7 @@ export default (router: Router) => {
     passport.authenticate("jwt", { session: false }),
     AuthController.jwtAuth
   );
-  router.put("/local/registration", upload.none(), AuthController.registration);
+  router.put("/registration", upload.none(), AuthController.registration);
   router.delete(
     "/logout",
     passport.authenticate("jwt", { session: false }),
