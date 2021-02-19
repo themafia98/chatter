@@ -26,7 +26,6 @@ export type RegData = {
   email: string;
   name: string;
   id_user: string;
-  create_date: string;
   phone?: string;
 };
 

@@ -73,3 +73,8 @@
 .createChatButton:active {
   background: linear-gradient(92.68deg, #7cb8f7 0%, #015ec2 100%);
 }
+
+.logoutButton {
+  position: fixed;
+  left: 0;
+}

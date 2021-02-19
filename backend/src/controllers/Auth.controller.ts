@@ -1,37 +1,50 @@
 import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 import passport from "passport";
 import globalConfig from "../config/global.config";
-import db from "../database/models";
-import { ExpressUser } from "../interfaces";
+import { ExpressUser, UserAttributes } from "../interfaces";
+import { STRATEGY_CONTEXT } from "../models/AuthStrategyContext/AuthStrategyContext.constant";
+import { UserModel } from "../types";
+import { createUser, generateToken } from "../utils/systemUtils";
 
 namespace AuthController {
   export const registration = async (req: Request, res: Response) => {
-    console.log(req.body);
-
     if (!req.body || typeof req.body !== "object") {
       res.sendStatus(403);
       return;
     }
 
     try {
-      await db.User.create(req.body);
+      const response = await createUser(req.body);
+      res.json({ token: generateToken(response as UserAttributes) });
+      return;
     } catch (err) {
       console.error(err);
       res.sendStatus(403);
-      return;
     }
-
-    res.sendStatus(200);
   };
 
   export const logout = async (req: Request, res: Response) => {
+    req.logout();
     res.sendStatus(200);
   };
 
-  export const login = (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate(
-      globalConfig.AUTH_STRATEGY,
-      (err: Error, user: ExpressUser): any => {
+  export const jwtAuth = (req: Request, res: Response) => {
+    res.status(200).json(req.user);
+  };
+
+  export const login = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    await passport.authenticate(
+      STRATEGY_CONTEXT.LOCAL,
+      (err: Error, user: ExpressUser, info: any): any => {
+        if (!user) {
+          console.warn(info.message);
+        }
+
         if (err) return next(err);
 
         if (!user)
@@ -40,10 +53,14 @@ namespace AuthController {
             message: "Invalid username or password.",
           });
 
-        req.logIn(user, (err: Error) => {
+        req.login(user, { session: false }, (err: Error) => {
           if (err) return next(err);
 
-          return res.json({ redirect: "/dashboard", message: "" });
+          return res.json({
+            redirect: "/chatDashboard",
+            message: "",
+            token: generateToken(user as any),
+          });
         });
       }
     )(req, res, next);

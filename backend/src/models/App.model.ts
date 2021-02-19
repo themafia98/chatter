@@ -5,6 +5,7 @@ import createEndpoint from "../utils/createEndpoint";
 import useGlobalMiddlewares from "../middleware/useGlobalMiddlewares";
 import authRouteRegister from "../routes/v1/Auth.route";
 import useAuthMiddleware from "../middleware/useAuthMiddleware";
+import passport from "passport";
 
 class App {
   private instanseApp: Application;
@@ -13,8 +14,13 @@ class App {
 
   constructor(port: string) {
     this.instanseApp = express();
+
+    this.instanseApp.use(passport.initialize());
+    this.instanseApp.use(passport.session());
+
     this.router = createEndpoint(this.instanseApp);
     this.instanseApp.set("port", port);
+    this.instanseApp.set("trust proxy", true);
   }
 
   private defineServer(): void {

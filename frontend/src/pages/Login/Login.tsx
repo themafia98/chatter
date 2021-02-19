@@ -38,7 +38,6 @@ const Login = (): ReactElement => {
 
     if (visibleModal) {
       validFormData.append('id_user', uuid());
-      validFormData.append('create_date', new Date().toLocaleDateString());
     }
 
     const apiUrl: string = visibleModal ? '/registration' : '/login';
@@ -62,10 +61,14 @@ const Login = (): ReactElement => {
         throw new Error('bad auth');
       }
 
-      const { redirect = '', message = '' } = response.data as Record<
+      const { redirect = '', message = '', token } = response.data as Record<
         string,
         string
       >;
+
+      if (token) {
+        localStorage.setItem('token', token);
+      }
 
       const shouldUseRedirect =
         redirect && redirect !== window.location.pathname;

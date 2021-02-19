@@ -5,12 +5,13 @@ export interface UserAttributes {
   id_user: string;
   name: string;
   email: string;
-  create_date: string;
   password: string;
   phone: string;
   photo: string;
   openId: string;
   salt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface ExpressUser extends Express.User {
@@ -18,7 +19,7 @@ export interface ExpressUser extends Express.User {
 }
 
 export interface UserModel extends ModelCtor<Model<UserAttributes, any>> {
-  encryptPassword(plainPassword: string, salt: BinaryLike): string;
+  encryptPassword(plainPassword: string, salt?: BinaryLike): string;
   generateSalt(): string;
   correctPassword(enteredPassword: string): boolean;
 }
