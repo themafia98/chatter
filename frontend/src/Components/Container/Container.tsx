@@ -14,6 +14,7 @@ import {
 } from '../../redux/chatReducer/chatReducer.slice';
 import Modal from '../../common/Modal/Modal';
 import RoomCreater from '../RoomCreater/RoomCreater';
+import Request from '../../models/Request.model';
 
 const Container = (): ReactElement => {
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
@@ -39,6 +40,16 @@ const Container = (): ReactElement => {
   const handleModalVisibility: MouseEventHandler = () =>
     setVisibleModal(!visibleModal);
 
+  const logout = async () => {
+    const request = new Request();
+    const response = await request.send('/logout', 'DELETE', null, true);
+
+    if (response.status === 200) {
+      localStorage.removeItem('token');
+      location.assign('/');
+    }
+  };
+
   return (
     <>
       <Modal
@@ -47,6 +58,9 @@ const Container = (): ReactElement => {
         visible={visibleModal}>
         <RoomCreater afterSubmitCallback={handleModalVisibility} />
       </Modal>
+      <Button className={classes.logoutButton} onClick={logout}>
+        Logout
+      </Button>
       <main className={classes.chatContainer}>
         <div className={classes.content}>
           <div className={classes.chatList}>

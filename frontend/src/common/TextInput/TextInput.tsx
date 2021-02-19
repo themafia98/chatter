@@ -11,6 +11,7 @@ type TextInputType = {
   disabled?: boolean;
   icon?: ReactElement;
   type?: string;
+  name?: string;
 };
 
 const TextInput = ({
@@ -22,6 +23,7 @@ const TextInput = ({
   disabled,
   icon,
   type,
+  name,
 }: TextInputType): ReactElement => {
   const [isFocus, setFocus] = useState<boolean>(false);
 
@@ -41,6 +43,7 @@ const TextInput = ({
         type={type}
         placeholder={!isFocus ? placeholder : ''}
         value={value}
+        name={name}
         disabled={disabled}
         />
     </div>
@@ -51,6 +54,7 @@ TextInput.defaultProps = {
   value: '',
   className: '',
   wrapperClassName: '',
+  name: '',
   onChange: null,
   disabled: false,
   icon: null,

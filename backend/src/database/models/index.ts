@@ -5,7 +5,7 @@ import config from "../config/config";
 const env: string = process.env.NODE_ENV || "development";
 const { [env]: envConfig = {} } = config as Record<string, any>;
 
-const sequelize = new Sequelize(envConfig.url, envConfig);
+export const sequelize = new Sequelize(envConfig.url, envConfig);
 
 const db = {
   sequelize,

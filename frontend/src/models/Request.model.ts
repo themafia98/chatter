@@ -8,17 +8,29 @@ class Request {
     return this.api;
   }
 
+  getToken(): string {
+    return localStorage.getItem('token') || '';
+  }
+
   send(
     url: string,
     method: Method,
     data: null | Record<string, any> = null,
     withCredentials = false,
-    headers?: Record<string, any>
+    headers: Record<string, any> | null = null
   ): AxiosPromise {
+    const apiHeaders = {
+      ...headers,
+    };
+
+    if (withCredentials) {
+      apiHeaders.Authorization = `bearer ${this.getToken()}`;
+    }
+
     return axios(`${this.apiUrl}${url}`, {
       method,
       data,
-      headers,
+      headers: apiHeaders,
       withCredentials,
     });
   }

@@ -1,26 +1,33 @@
-import axios from 'axios';
+import { Method } from 'axios';
+import { v4 as uuid } from 'uuid';
 import {
   ChangeEvent,
   ChangeEventHandler,
   FormEventHandler,
   MouseEvent,
+  MouseEventHandler,
   ReactElement,
   useState,
 } from 'react';
 import Button from '../../common/Button/Button';
+import Modal from '../../common/Modal/Modal';
 import TextInput from '../../common/TextInput/TextInput';
 import Request from '../../models/Request.model';
-import { LoginData } from '../../Types';
+import { LoginData, RegData } from '../../Types';
 import classes from './Login.module.css';
 
 const Login = (): ReactElement => {
+  const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [message, setShowMessage] = useState<string>('');
-  const [formData, setFormData] = useState<LoginData>(() => ({
-    email: 'admin@admin.ru',
-    password: '',
-  }));
+  const [formData, setFormData] = useState<LoginData | RegData | null>(null);
+
+  const regFormData: RegData | null = visibleModal
+    ? formData as RegData
+    : null;
 
   const sendFormData = async (): Promise<void | null> => {
+    if (!formData) return;
+
     const validFormData = new FormData();
 
     Object.keys(formData).forEach((key: any) => {
@@ -28,12 +35,20 @@ const Login = (): ReactElement => {
 
       validFormData.append(key, currentValue);
     });
+
+    if (visibleModal) {
+      validFormData.append('id_user', uuid());
+    }
+
+    const apiUrl: string = visibleModal ? '/registration' : '/login';
+    const apiMethod: Method = visibleModal ? 'PUT' : 'POST';
+
     try {
       const request = new Request();
 
       const response = await request.send(
-        '/login',
-        'POST',
+        apiUrl,
+        apiMethod,
         validFormData,
         true,
         {
@@ -46,10 +61,14 @@ const Login = (): ReactElement => {
         throw new Error('bad auth');
       }
 
-      const { redirect = '', message = '' } = response.data as Record<
+      const { redirect = '', message = '', token } = response.data as Record<
         string,
         string
       >;
+
+      if (token) {
+        localStorage.setItem('token', token);
+      }
 
       const shouldUseRedirect =
         redirect && redirect !== window.location.pathname;
@@ -76,38 +95,109 @@ const Login = (): ReactElement => {
 
   const handleChangeFormInputs: ChangeEventHandler = ({
     target,
-  }: ChangeEvent<HTMLInputElement>): void =>
-    setFormData({
-      ...formData,
+  }: ChangeEvent<HTMLInputElement>): void => {
+    const loginData: LoginData = {
+      ...formData as LoginData,
       [target.type !== 'password' ? 'email' : 'password']: target.value,
-    });
+    };
+
+    setFormData(loginData);
+  };
+
+  const handleVisibilityModalChange: MouseEventHandler = (
+    event: MouseEvent
+  ) => {
+    setFormData(null);
+    setVisibleModal(!visibleModal);
+  };
+
+  const handleChangeRegFormInputs: ChangeEventHandler = ({
+    target,
+  }: ChangeEvent<HTMLInputElement>): void => {
+    const loginData: RegData = {
+      ...formData as RegData,
+      [target.name]: target.value,
+    };
+
+    setFormData(loginData);
+  };
 
   return (
-    <section className={classes.container}>
-      <header className={classes.header}>Chatter</header>
-      <main className={classes.main}>
-        <form className={classes.form}>
-          {message && <p className={classes.message}>{message}</p>}
-          <label className={classes.formLabel}>Login</label>
+    <>
+      <section className={classes.container}>
+        <header className={classes.header}>Chatter</header>
+        <main className={classes.main}>
+          <form className={classes.form}>
+            {message && <p className={classes.message}>{message}</p>}
+            <label className={classes.formLabel}>Login</label>
+            <TextInput
+              placeholder="email"
+              className={classes.formInput}
+              wrapperClassName={classes.wrapperFormInput}
+              value={formData?.email}
+              onChange={handleChangeFormInputs}
+              />
+            <label className={classes.formLabel}>Password</label>
+            <TextInput
+              className={classes.formInput}
+              wrapperClassName={classes.wrapperFormInput}
+              value={formData?.password}
+              onChange={handleChangeFormInputs}
+              type="password"
+              />
+            <Button className={classes.enterButton} onClick={handleSubmitForm}>
+              Enter
+            </Button>
+            <Button onClick={handleVisibilityModalChange}>Registration</Button>
+          </form>
+        </main>
+      </section>
+      <Modal
+        visible={visibleModal}
+        onVisibilityChange={handleVisibilityModalChange}
+        contentClassName={classes.contentModal}
+        width={800}
+        height={70}
+        title="Registration">
+        <form className={classes.regForm}>
           <TextInput
-            placeholder="email"
-            className={classes.formInput}
-            wrapperClassName={classes.wrapperFormInput}
-            value={formData.email}
-            onChange={handleChangeFormInputs}
+            className={classes.regFormTextInput}
+            wrapperClassName={classes.regFormTextInputWrapper}
+            onChange={handleChangeRegFormInputs}
+            placeholder="email*"
+            name="email"
+            value={regFormData?.email}
             />
-          <label className={classes.formLabel}>Password</label>
           <TextInput
-            className={classes.formInput}
-            wrapperClassName={classes.wrapperFormInput}
-            value={formData.password}
-            onChange={handleChangeFormInputs}
+            className={classes.regFormTextInput}
+            wrapperClassName={classes.regFormTextInputWrapper}
+            onChange={handleChangeRegFormInputs}
+            placeholder="password*"
+            name="password"
             type="password"
+            value={regFormData?.password}
             />
-          <Button onClick={handleSubmitForm}>Войти</Button>
+          <TextInput
+            className={classes.regFormTextInput}
+            wrapperClassName={classes.regFormTextInputWrapper}
+            onChange={handleChangeRegFormInputs}
+            placeholder="name*"
+            name="name"
+            value={regFormData?.name}
+            />
+          <TextInput
+            className={classes.regFormTextInput}
+            wrapperClassName={classes.regFormTextInputWrapper}
+            onChange={handleChangeRegFormInputs}
+            placeholder="phone"
+            name="phone"
+            type="phone"
+            value={regFormData?.password}
+            />
+          <Button onClick={handleSubmitForm}>Submit</Button>
         </form>
-      </main>
-    </section>
+      </Modal>
+    </>
   );
 };
 
