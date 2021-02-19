@@ -21,4 +21,12 @@ export type LoginData = {
   email: string;
 };
 
+export type RegData = {
+  password: string;
+  email: string;
+  name: string;
+  id_user: string;
+  phone?: string;
+};
+
 export type ChatType = 'common' | 'tasks';

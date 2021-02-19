@@ -1,8 +1,7 @@
-import { Model, ModelCtor, STRING, UUID } from "sequelize";
+import { Model, ModelCtor, TEXT, UUID, fn } from "sequelize";
 import crypto, { BinaryLike } from "crypto";
 import { DATE, Sequelize, CHAR, UUIDV4 } from "sequelize";
 import { UserAttributes, UserModel } from "../../../interfaces";
-
 
 export function initUser(sequalize: Sequelize): UserModel {
   const attributes: SequelizeAttributes<UserAttributes> = {
@@ -12,26 +11,35 @@ export function initUser(sequalize: Sequelize): UserModel {
       allowNull: false,
       defaultValue: UUIDV4,
     },
-    name: { type: CHAR, allowNull: false },
+    name: { type: TEXT, allowNull: false },
 
-    email: { type: CHAR, allowNull: false },
-    create_date: { type: DATE, allowNull: false },
+    email: { type: TEXT, allowNull: false },
+    createdAt: {
+      allowNull: false,
+      type: DATE,
+      defaultValue: fn("NOW"),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DATE,
+      defaultValue: fn("NOW"),
+    },
     password: {
-      type: CHAR,
+      type: TEXT,
       allowNull: false,
       get() {
         return () => this.getDataValue("password");
       },
     },
     salt: {
-      type: STRING,
+      type: TEXT,
       get() {
         return () => this.getDataValue("salt");
       },
     },
-    phone: { type: CHAR, allowNull: true },
-    photo: { type: CHAR, allowNull: true },
-    openId: { type: CHAR, allowNull: true },
+    phone: { type: TEXT, allowNull: true },
+    photo: { type: TEXT, allowNull: true },
+    openId: { type: TEXT, allowNull: true },
   };
 
   const User: ModelCtor<Model<UserAttributes, any>> = sequalize.define(

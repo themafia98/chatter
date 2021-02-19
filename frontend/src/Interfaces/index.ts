@@ -4,7 +4,6 @@ export interface User {
   id: number;
   id_user: string;
   name: string;
-  create_date: string;
 }
 
 export interface PrivateUser extends User {

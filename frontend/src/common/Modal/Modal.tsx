@@ -7,6 +7,9 @@ type ModalProps = {
   children: ReactElement;
   onVisibilityChange: MouseEventHandler;
   title: string;
+  height?: number;
+  width?: number;
+  contentClassName?: string;
 };
 
 const Modal = ({
@@ -14,6 +17,9 @@ const Modal = ({
   children,
   onVisibilityChange,
   title,
+  width,
+  height,
+  contentClassName,
 }: ModalProps): ReactElement | null => {
   if (!visible) return null;
 
@@ -31,7 +37,14 @@ const Modal = ({
     <div
       onClick={handleChangeVisibility}
       className={clsx(classes.modalWrapper, 'modal-close-target')}>
-      <div className={classes.modal}>
+      <div
+        style={{
+          height: `${height}%`,
+          width,
+          left: width ? `calc(50% - ${width / 2}px)` : '',
+          top: height ? `calc(50% - ${height / 2}%)` : '',
+        }}
+        className={classes.modal}>
         <div className={classes.modalContainer}>
           <div
             onClick={handleChangeVisibility}
@@ -43,7 +56,9 @@ const Modal = ({
           <header className={classes.header}>
             <p className={classes.title}>{title}</p>
           </header>
-          <section className={classes.content}>{children}</section>
+          <section className={clsx(classes.content, contentClassName)}>
+            {children}
+          </section>
         </div>
       </div>
     </div>
