@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import loaderImage from './loader.gif';
 
 type LoaderProps = {
@@ -6,7 +7,7 @@ type LoaderProps = {
   className?: string;
 };
 
-const Loader = ({ width, height, className }: LoaderProps) => 
+const Loader = ({ width, height, className }: LoaderProps): ReactElement => 
   <img className={className} style={{ width, height }} src={loaderImage} />
 ;
 Loader.defaultProps = {
