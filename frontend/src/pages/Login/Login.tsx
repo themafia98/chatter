@@ -5,7 +5,6 @@ import {
   ChangeEventHandler,
   FormEventHandler,
   MouseEvent,
-  MouseEventHandler,
   ReactElement,
   useState,
 } from 'react';
@@ -78,12 +77,19 @@ const Login = (): ReactElement => {
         return;
       }
 
+      if (visibleModal) {
+        handleVisibilityModalChange();
+      }
+
       if (shouldUseRedirect) {
         window.location.assign(redirect);
       }
     } catch (error) {
-      // eslint-disable-next-line
-      console.error(error);
+      const { data = '' } = error.response || {};
+
+      if (data && data !== message) {
+        setShowMessage(data);
+      }
     }
   };
 
@@ -104,9 +110,11 @@ const Login = (): ReactElement => {
     setFormData(loginData);
   };
 
-  const handleVisibilityModalChange: MouseEventHandler = (
-    event: MouseEvent
-  ) => {
+  const handleVisibilityModalChange = () => {
+    if (message) {
+      setShowMessage('');
+    }
+
     setFormData(null);
     setVisibleModal(!visibleModal);
   };
@@ -128,7 +136,9 @@ const Login = (): ReactElement => {
         <header className={classes.header}>Chatter</header>
         <main className={classes.main}>
           <form className={classes.form}>
-            {message && <p className={classes.message}>{message}</p>}
+            {message && !visibleModal && 
+              <p className={classes.message}>{message}</p>
+            }
             <label className={classes.formLabel}>Login</label>
             <TextInput
               placeholder="email"
@@ -160,6 +170,9 @@ const Login = (): ReactElement => {
         height={70}
         title="Registration">
         <form className={classes.regForm}>
+          {message && visibleModal && 
+            <p className={classes.message}>{message}</p>
+          }
           <TextInput
             className={classes.regFormTextInput}
             wrapperClassName={classes.regFormTextInputWrapper}
@@ -192,7 +205,7 @@ const Login = (): ReactElement => {
             placeholder="phone"
             name="phone"
             type="phone"
-            value={regFormData?.password}
+            value={regFormData?.phone}
             />
           <Button onClick={handleSubmitForm}>Submit</Button>
         </form>
