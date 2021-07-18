@@ -1,0 +1,38 @@
+version: "3.8"
+services:
+  database:
+    image: 'postgres:13.3-alpine'
+    container_name: chatter-database
+    volumes:
+      - chatter-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5433
+    env_file:
+      - backend/.env
+  backend:
+    build: ./backend
+    container_name: chatter_backend
+    env_file:
+      - backend/.env
+    ports:
+      - 3001:3001
+    depends_on:
+      - database
+    networks:
+      - app-network
+  frontend:
+      build: ./frontend
+      container_name: chatter-frontend
+      env_file:
+        - frontend/.env
+      ports:
+        - 3000:80
+      depends_on:
+        - database
+        - backend
+      networks:
+        - app-network
+volumes:
+  chatter-data:
+networks:
+  app-network:

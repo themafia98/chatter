@@ -47,7 +47,7 @@ export function initUser(sequalize: Sequelize): UserModel {
     attributes
   );
 
-  (<UserModel>User).encryptPassword = (
+  (User as unknown as UserModel).encryptPassword = (
     plainPassword: string,
     salt: BinaryLike = crypto.randomBytes(32).toString("base64")
   ): string =>
@@ -57,20 +57,20 @@ export function initUser(sequalize: Sequelize): UserModel {
       .update(salt)
       .digest("hex");
 
-  (<UserModel>User).generateSalt = () =>
+  (User as unknown as UserModel).generateSalt = () =>
     crypto.randomBytes(32).toString("base64");
 
   User.prototype.correctPassword = function (enteredPassword: string): boolean {
     return (
-      (<UserModel>User).encryptPassword(enteredPassword, this.salt()) ===
+      (User as unknown as UserModel).encryptPassword(enteredPassword, this.salt()) ===
       this.password()
     );
   };
 
   const setSaltAndPassword = (user: Partial<any>) => {
     if (user.changed("password")) {
-      user.salt = (<UserModel>User).generateSalt();
-      user.password = (<UserModel>User).encryptPassword(
+      user.salt = (User as unknown as UserModel).generateSalt();
+      user.password = (User as unknown as UserModel).encryptPassword(
         user.password(),
         user.salt()
       );
@@ -80,5 +80,5 @@ export function initUser(sequalize: Sequelize): UserModel {
   User.beforeCreate(setSaltAndPassword);
   User.beforeUpdate(setSaltAndPassword);
 
-  return User as UserModel;
+  return User as unknown as UserModel;
 }

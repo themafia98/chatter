@@ -24,7 +24,10 @@ class App {
   }
 
   private defineServer(): void {
-    this.server = this.instanseApp.listen(this.instanseApp.get("port"), () =>
+    this.server = this.instanseApp.listen(
+        this.instanseApp.get("port"),
+        'chatter_backend',
+        () =>
       console.log("Server is running...")
     );
   }
