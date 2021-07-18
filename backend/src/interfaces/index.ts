@@ -18,8 +18,6 @@ export interface ExpressUser extends Express.User {
   id: string;
 }
 
-export interface UserModel extends ModelCtor<Model<UserAttributes, any>> {
-  encryptPassword(plainPassword: string, salt?: BinaryLike): string;
-  generateSalt(): string;
-  correctPassword(enteredPassword: string): boolean;
+export interface UserModel {
+  [key: string]: any
 }
